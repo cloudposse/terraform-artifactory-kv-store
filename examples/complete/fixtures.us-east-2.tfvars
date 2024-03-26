@@ -8,5 +8,9 @@ stage = "test"
 
 name = "example"
 
-example_input = "Hello, world!"
+restapi_uri = "https://cloudpossetest.jfrog.io/artifactory/kvstore/"
 
+set = {
+  "key1" = {value = "value1" }
+  "key2" = {value = "value2" }
+}
