@@ -6,5 +6,9 @@ terraform {
       source  = "Mastercard/restapi"
       version = ">= 1"
     }
+    artifactory = {
+      source = "jfrog/artifactory"
+      version = ">= 10"
+    }
   }
 }

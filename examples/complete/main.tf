@@ -10,6 +10,7 @@ module "example" {
 
   context = module.this.context
 
-  restapi_uri        = var.restapi_uri
-  restapi_auth_token = var.restapi_auth_token
+  artifactory_base_uri = var.artifactory_base_uri
+  artifactory_repository = var.artifactory_repository
+  artifactory_auth_token = var.artifactory_auth_token
 }

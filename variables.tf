@@ -85,12 +85,17 @@ variable "key_label_order" {
     EOT
 }
 
-variable "restapi_uri" {
-  description = "The URI of the K/V store."
+variable "artifactory_base_uri" {
+  description = "The base URI for artifactory."
   type        = string
 }
 
-variable "restapi_auth_token" {
-  description = "The auth token to use for the K/V store."
+variable "artifactory_repository" {
+  description = "The name of the artifactory repository."
+  type        = string
+}
+
+variable "artifactory_auth_token" {
+  description = ""
   type        = string
 }
