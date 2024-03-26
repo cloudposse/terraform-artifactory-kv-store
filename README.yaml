@@ -8,7 +8,7 @@
 # the template below the dashes
 
 # Name of this project
-name: terraform-example-module
+name: terraform-artifactory-kv-store
 
 # License of this project
 license: "APACHE2"
