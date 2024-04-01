@@ -23,9 +23,7 @@ variable "get" {
     }
     )
   )
-  default = {
-    myval = { stage = "root" }
-  }
+  default = {}
   nullable = false
 }
 
@@ -61,6 +59,7 @@ variable "set" {
     {
       key_path    = optional(string),
       value       = string,
+      sensitive   = bool,
       namespace   = optional(string),
       tenant      = optional(string),
       stage       = optional(string),

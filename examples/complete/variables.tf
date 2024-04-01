@@ -23,7 +23,7 @@ variable "get" {
     }
     )
   )
-  default  = {}
+  default = {}
   nullable = false
 }
 
@@ -49,12 +49,6 @@ variable "get_by_path" {
   nullable = false
 }
 
-variable "ssm_enabled" {
-  description = "Whether to enable the SSM backend for the key/value store."
-  type        = bool
-  default     = true
-}
-
 variable "set" {
   description = <<-EOT
   A map of key-value pairs to write to the key/value store. The key_path,
@@ -65,6 +59,7 @@ variable "set" {
     {
       key_path    = optional(string),
       value       = string,
+      sensitive   = bool,
       namespace   = optional(string),
       tenant      = optional(string),
       stage       = optional(string),

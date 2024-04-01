@@ -31,10 +31,10 @@ resource "restapi_object" "write_kv_pair" {
   update_path  = "{id}"
   destroy_path = "{id}"
 
-  path = each.key
+  path = format("%s;sensitive=%t", each.key, each.value.sensitive)
   data = jsonencode({
     key = each.key
-    value = each.value.value
+    value = each.value.sensitive ? sensitive(each.value.value) : each.value.value
   })
 }
 
