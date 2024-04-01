@@ -10,7 +10,7 @@ module "example" {
 
   context = module.this.context
 
-  artifactory_base_uri = var.artifactory_base_uri
+  artifactory_base_uri   = var.artifactory_base_uri
   artifactory_repository = var.artifactory_repository
   artifactory_auth_token = var.artifactory_auth_token
 }
