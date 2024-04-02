@@ -8,9 +8,6 @@ stage = "test"
 
 name = "example"
 
-artifactory_base_uri   = "https://cloudpossetest.jfrog.io"
-artifactory_repository = "kvstore"
-
 set = {
   "key1"    = { value = "value1", sensitive = false }
   "key2"    = { value = "value2", sensitive = false }
