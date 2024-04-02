@@ -3,7 +3,12 @@ locals {
 
   artifactory_get_output         = { for key, value in local.vals_to_read : key => jsondecode(file(data.artifactory_file.read_kv_pair[key].output_path)) }
   artifactory_get_by_path_output = { for key, value in data.artifactory_file.read_kv_path_file : split(":", key)[0] => jsondecode(file(data.artifactory_file.read_kv_path_file[key].output_path))... }
-  artifactory_output             = merge(local.artifactory_get_output, local.artifactory_get_by_path_output)
+  // Instead of using a map of lists, we use : as a delimiter such that each value is a string with the format "key:path".
+  // Using this one dimensional list (as opposed to a map of lists or a two-dimensional list) and then using the split function to extract the key allows us to use the list in the for_each meta-argument,
+  // without encountering the following error:
+  // 'The "for_each" set includes values derived from resource attributes that cannot be determined until apply...'
+  // This error typically occurs when using a two dimensional list (or similar) in conjunction with a function such as 'flatten', and then providing said data structure to the for_each meta-argument.
+  artifactory_output = merge(local.artifactory_get_output, local.artifactory_get_by_path_output)
 }
 
 provider "restapi" {
