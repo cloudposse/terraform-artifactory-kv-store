@@ -18,7 +18,7 @@ func cleanup(t *testing.T, terraformOptions *terraform.Options, tempTestFolder s
 }
 
 func TestExamplesComplete(t *testing.T) {
-	// t.Parallel()
+	t.Parallel()
 
 	// Generate a random ID to prevent naming conflicts
 	randID := strings.ToLower(random.UniqueId())
@@ -60,7 +60,7 @@ func TestExamplesComplete(t *testing.T) {
 	}
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
-	// defer cleanup(t, terraformOptions, tempTestFolder)
+	defer cleanup(t, terraformOptions, tempTestFolder)
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Now use a different set of options to test that we can get the values written in the previous step
@@ -81,7 +81,7 @@ func TestExamplesComplete(t *testing.T) {
 	}
 
 	terraform.InitAndApply(t, terraformGetOptions)
-	// defer cleanup(t, terraformGetOptions, tempGetTestFolder)
+	defer cleanup(t, terraformGetOptions, tempGetTestFolder)
 
 	// Run `terraform output` to get the value of an output variable
 	values := terraform.OutputMapOfObjects(t, terraformGetOptions, "values")
