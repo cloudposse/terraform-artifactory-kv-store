@@ -23,7 +23,7 @@ variable "get" {
     }
     )
   )
-  default = {}
+  default  = {}
   nullable = false
 }
 
