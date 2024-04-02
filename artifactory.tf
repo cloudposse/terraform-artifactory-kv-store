@@ -61,7 +61,7 @@ data "artifactory_file_list" "read_kv_path" {
 }
 
 data "artifactory_file" "read_kv_path_file" {
-  for_each = toset(flatten([for key, value in data.artifactory_file_list.read_kv_path : formatlist("%s:%s%s", key, key, value.files.*.uri)]))
+  for_each = toset(flatten([for key, value in data.artifactory_file_list.read_kv_path : formatlist("%s:%s%s", key, trim(local.vals_to_read_by_path[key], "/"), value.files.*.uri)]))
 
   repository  = var.artifactory_repository
   path        = split(":", each.value)[1]
