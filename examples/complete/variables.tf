@@ -1,3 +1,9 @@
+variable "enabled" {
+  description = "Whether to enable the context provider."
+  type        = bool
+  default     = true
+}
+
 variable "key_prefix" {
   description = "The prefix to use for the key path. This is useful for storing all keys for a module under a common prefix."
   type        = string
@@ -76,11 +82,11 @@ variable "set" {
 
 variable "key_label_order" {
   type        = list(string)
-  default     = ["namespace", "tenant", "stage", "environment", "name", "attributes"]
+  default     = []
   description = <<-EOT
-    The order in which the labels (ID elements) appear in the full key path.
-    Defaults to ["namespace", "tenant", "stage", "environment", "name", "attributes"].
-    You can omit any of the 6 labels, but at least one must be present.
+   The order in which the labels (ID elements) appear in the full key path. For example, if you want a key path to
+    look like /{namespace}/{tenant}/{stage}/{environment}/name, you would set this varibale to
+    ["namespace", "tenant", "stage", "environment", "name"].
     EOT
 }
 
@@ -95,6 +101,10 @@ variable "artifactory_repository" {
 }
 
 variable "artifactory_auth_token" {
-  description = ""
+  description = <<-EOT
+    The authentication token to use when accessing artifactory. Getting this value from the environment is supported
+    with JFROG_ACCESS_TOKEN or ARTIFACTORY_ACCESS_TOKEN variables.
+    EOT
   type        = string
+  default     = null
 }

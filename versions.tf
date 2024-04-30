@@ -10,5 +10,9 @@ terraform {
       source  = "jfrog/artifactory"
       version = ">= 10"
     }
+    context = {
+      source  = "cloudposse/context"
+      version = ">= 0.0.0"
+    }
   }
 }
