@@ -59,6 +59,7 @@ provider "restapi" {
 }
 
 provider "artifactory" {
-  url          = format("%s/artifactory", local.artifactory_base_uri)
-  access_token = var.artifactory_auth_token
+  url           = format("%s/artifactory", local.artifactory_base_uri)
+  access_token  = var.artifactory_auth_token
+  check_license = false
 }

@@ -18,6 +18,7 @@ func cleanup(t *testing.T, terraformOptions *terraform.Options, tempTestFolder s
 }
 
 func TestExamplesComplete(t *testing.T) {
+	t.Skip("Skipping test that requires Artifactory becuase we have unable to get Jfrog to give us a long-term trial license")
 	t.Parallel()
 
 	// Generate a random ID to prevent naming conflicts
@@ -91,6 +92,7 @@ func TestExamplesComplete(t *testing.T) {
 }
 
 func TestExamplesCompleteDisabled(t *testing.T) {
+	t.Skip("Skipping test that requires Artifactory becuase we have unable to get Jfrog to give us a long-term trial license")
 	t.Parallel()
 
 	rootFolder := "../../"
