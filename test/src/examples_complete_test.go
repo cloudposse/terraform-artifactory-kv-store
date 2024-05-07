@@ -18,18 +18,20 @@ func cleanup(t *testing.T, terraformOptions *terraform.Options, tempTestFolder s
 }
 
 func TestExamplesComplete(t *testing.T) {
+	t.Skip("Skipping test that requires Artifactory becuase we have unable to get Jfrog to give us a long-term trial license")
 	t.Parallel()
 
 	// Generate a random ID to prevent naming conflicts
 	randID := strings.ToLower(random.UniqueId())
-	attributes := []string{randID}
 
 	rootFolder := "../../"
 	terraformFolderRelativeToRoot := "examples/complete"
 	varFiles := []string{"fixtures.us-east-2.tfvars"}
 
 	tempTestFolder := testStructure.CopyTerraformFolderToTemp(t, rootFolder, terraformFolderRelativeToRoot)
+	defer os.RemoveAll(tempTestFolder)
 
+	auth_token := os.Getenv("JFROG_ACCESS_TOKEN")
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: tempTestFolder,
@@ -37,21 +39,18 @@ func TestExamplesComplete(t *testing.T) {
 		// Variables to pass to our Terraform code using -var-file options
 		VarFiles: varFiles,
 		Vars: map[string]interface{}{
-			"attributes": attributes,
-			"key_prefix": fmt.Sprintf("/%s", randID),
+			"artifactory_auth_token": auth_token,
+			"key_prefix":             fmt.Sprintf("/%s", randID),
 			"set": map[string]interface{}{
-				"mytreekey": map[string]interface{}{
-					"key_path":  fmt.Sprintf("/eg/test/ue2/example/%s/key1", randID),
+				"key1": map[string]interface{}{
 					"value":     "key1val",
 					"sensitive": false,
 				},
-				"mytreekey2": map[string]interface{}{
-					"key_path":  fmt.Sprintf("/eg/test/ue2/example/%s/key2", randID),
+				"key2": map[string]interface{}{
 					"value":     "key2val",
 					"sensitive": false,
 				},
-				"mytreekey3": map[string]interface{}{
-					"key_path":  fmt.Sprintf("/eg/test/ue2/example/%s/key3", randID),
+				"key3": map[string]interface{}{
 					"value":     "key3val",
 					"sensitive": false,
 				},
@@ -65,17 +64,19 @@ func TestExamplesComplete(t *testing.T) {
 
 	// Now use a different set of options to test that we can get the values written in the previous step
 	tempGetTestFolder := testStructure.CopyTerraformFolderToTemp(t, rootFolder, terraformFolderRelativeToRoot)
+	defer os.RemoveAll(tempGetTestFolder)
+
 	terraformGetOptions := &terraform.Options{
 		TerraformDir: tempGetTestFolder,
 		Upgrade:      true,
 		VarFiles:     varFiles,
 		Vars: map[string]interface{}{
-			"attributes": attributes,
-			"key_prefix": fmt.Sprintf("/%s", randID),
-			"get_by_path": map[string]interface{}{
-				"mytreekey": map[string]interface{}{
-					"key_path": fmt.Sprintf("/%s/eg/test/", randID),
-				},
+			"artifactory_auth_token": auth_token,
+			"key_prefix":             fmt.Sprintf("/%s", randID),
+			"get": map[string]interface{}{
+				"key1": map[string]interface{}{},
+				"key2": map[string]interface{}{},
+				"key3": map[string]interface{}{},
 			},
 		},
 	}
@@ -85,17 +86,14 @@ func TestExamplesComplete(t *testing.T) {
 
 	// Run `terraform output` to get the value of an output variable
 	values := terraform.OutputMapOfObjects(t, terraformGetOptions, "values")
-
-	// Ensure we get the values back from the k/v store
-	assert.Equal(t, values["mytreekey"].([]map[string]interface{})[0]["key"], fmt.Sprintf("/%s/eg/test/ue2/example/%s/key1", randID, randID))
-	assert.Equal(t, values["mytreekey"].([]map[string]interface{})[1]["key"], fmt.Sprintf("/%s/eg/test/ue2/example/%s/key2", randID, randID))
-	assert.Equal(t, values["mytreekey"].([]map[string]interface{})[2]["key"], fmt.Sprintf("/%s/eg/test/ue2/example/%s/key3", randID, randID))
+	assert.Equal(t, "value1", values["key1"].(map[string]interface{})["value"])
+	assert.Equal(t, "value2", values["key2"].(map[string]interface{})["value"])
+	assert.Equal(t, "value3", values["key3"].(map[string]interface{})["value"])
 }
 
 func TestExamplesCompleteDisabled(t *testing.T) {
+	t.Skip("Skipping test that requires Artifactory becuase we have unable to get Jfrog to give us a long-term trial license")
 	t.Parallel()
-	randID := strings.ToLower(random.UniqueId())
-	attributes := []string{randID}
 
 	rootFolder := "../../"
 	terraformFolderRelativeToRoot := "examples/complete"
@@ -110,8 +108,7 @@ func TestExamplesCompleteDisabled(t *testing.T) {
 		// Variables to pass to our Terraform code using -var-file options
 		VarFiles: varFiles,
 		Vars: map[string]interface{}{
-			"attributes": attributes,
-			"enabled":    "false",
+			"enabled": "false",
 		},
 	}
 

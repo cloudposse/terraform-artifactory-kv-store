@@ -11,24 +11,6 @@ locals {
   artifactory_output = merge(local.artifactory_get_output, local.artifactory_get_by_path_output)
 }
 
-provider "restapi" {
-  uri = format("%s/artifactory/%s", local.artifactory_base_uri, var.artifactory_repository)
-
-  headers = {
-    "Authorization" = format("Bearer %s", var.artifactory_auth_token)
-    "Content-Type"  = "application/json"
-  }
-
-  write_returns_object = true
-  create_method        = "PUT"
-  update_method        = "PUT"
-}
-
-provider "artifactory" {
-  url          = format("%s/artifactory", local.artifactory_base_uri)
-  access_token = var.artifactory_auth_token
-}
-
 resource "restapi_object" "write_kv_pair" {
   for_each = local.vals_to_write
 
