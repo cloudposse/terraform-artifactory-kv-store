@@ -23,15 +23,12 @@ github_repo: cloudposse/terraform-artifactory-kv-store
 
 # Badges to display
 badges:
-  - name: Last Updated
-    image: https://img.shields.io/github/last-commit/None.svg?style=for-the-badge
-    url: https://github.com/None/commits
   - name: Latest Release
-    image: https://img.shields.io/github/release/None.svg?style=for-the-badge
-    url: https://github.com/None/releases/latest
+    image: https://img.shields.io/github/release/cloudposse/terraform-artifactory-kv-store.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-artifactory-kv-store/releases/latest
   - name: Last Updated
-    image: https://img.shields.io/github/last-commit/None.svg?style=for-the-badge
-    url: https://github.com/None/commits
+    image: https://img.shields.io/github/last-commit/cloudposse/terraform-artifactory-kv-store.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-artifactory-kv-store/commits
   - name: Slack Community
     image: https://slack.cloudposse.com/for-the-badge.svg
     url: https://slack.cloudposse.com
@@ -53,7 +50,6 @@ description: |-
 # Introduction to the project
 introduction: |-
 # This is an introduction.
-
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
   For a complete example, see [examples/complete](examples/complete).
