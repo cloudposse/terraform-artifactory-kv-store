@@ -2,10 +2,17 @@ terraform {
   required_version = ">= 1.0"
 
   required_providers {
-    # Update these to reflect the actual requirements of your module
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 2.2"
+    restapi = {
+      source  = "Mastercard/restapi"
+      version = ">= 1"
+    }
+    artifactory = {
+      source  = "jfrog/artifactory"
+      version = ">= 10"
+    }
+    context = {
+      source  = "cloudposse/context"
+      version = ">= 0.0.0"
     }
   }
 }
