@@ -154,7 +154,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_values"></a> [values](#output\_values) | n/a |
+| <a name="output_values"></a> [values](#output\_values) | the values retrieved with the kv store |
 <!-- markdownlint-restore -->
 
 
