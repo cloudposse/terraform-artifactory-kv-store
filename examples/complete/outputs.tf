@@ -1,4 +1,4 @@
 output "values" {
-  #value = module.example_read.values
+  description = "the values retrieved with the kv store"
   value = null
 }
