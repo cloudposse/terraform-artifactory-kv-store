@@ -31,7 +31,7 @@ badges:
     url: https://github.com/cloudposse/terraform-artifactory-kv-store/commits
   - name: Slack Community
     image: https://slack.cloudposse.com/for-the-badge.svg
-    url: https://slack.cloudposse.com
+    url: https://cloudposse.com/slack
 
 # List any related terraform modules that this module may be used with or that this module depends on.
 related:
@@ -48,7 +48,7 @@ description: |-
   modules. The backend for this key/value store is a generic Artifactory repository.
 
 # Introduction to the project
-introduction: |-
+introduction: |
 # This is an introduction.
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
@@ -83,9 +83,5 @@ quickstart: |-
   Here's how to get started...
 
 # Other files to include in this README from the project folder
-include:
-  - "docs/targets.md"
-  - "docs/terraform.md"
-
-# Contributors to this project
+include: []
 contributors: []
